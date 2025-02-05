@@ -1,0 +1,8 @@
+console.log("3" + 3)
+console.log("3" - 3)
+console.log("3" + "3")
+console.log("3" - "3")
+console.log(3 / "3")
+console.log("Three" + 3)
+console.log("Three" - 3)
+console.log("Three" - "Three")

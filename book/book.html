@@ -1,0 +1,519 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        
+        .start {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .start img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .search-container {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+        
+        .search-container input {
+            width: 100%;
+            height: 50px;
+            padding-left: 50px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.3s ease;
+        }
+        
+        .search-container input:focus {
+            border-color: #f84a64;
+        }
+        
+        .search-container input::placeholder {
+            color: #999;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        select {
+            height: 40px;
+            padding: 0 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        
+        .sign-in-btn {
+            background-color: rgb(248, 68, 100);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sign-in-btn:hover {
+            background-color: rgb(214, 49, 79);
+        }
+        
+        .menu {
+            --s: 30px;
+            --c: black;
+            height: var(--s);
+            aspect-ratio: 1;
+            border: none;
+            padding: 0;
+            border-inline: calc(var(--s) / 2) solid #0000;
+            box-sizing: content-box;
+            --_g1: linear-gradient(var(--c) 20%, #0000 0 80%, var(--c) 0) no-repeat content-box border-box;
+            --_g2: radial-gradient(circle closest-side at 50% 12.5%, var(--c) 95%, #0000) repeat-y content-box border-box;
+            background: var(--_g2) left var(--_p, 0px) top, var(--_g1) left calc(var(--s) / 10 + var(--_p, 0px)) top, var(--_g2) right var(--_p, 0px) top, var(--_g1) right calc(var(--s) / 10 + var(--_p, 0px)) top;
+            background-size: 20% 80%, 40% 100%;
+            position: relative;
+            clip-path: inset(0 25%);
+            cursor: pointer;
+            transition: background-position 0.3s var(--_s, .3s), clip-path 0s var(--_s, .6s);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        
+        .menu:before,
+        .menu:after {
+            content: "";
+            position: absolute;
+            border-radius: var(--s);
+            inset: 40% 0;
+            background: var(--c);
+            transition: transform 0.3s calc(.3s - var(--_s, .3s));
+        }
+        
+        .menu:checked {
+            clip-path: inset(0);
+            --_p: calc(-1 * var(--s));
+            --_s: 0s;
+        }
+        
+        .menu:checked:before {
+            transform: rotate(45deg);
+        }
+        
+        .menu:checked:after {
+            transform: rotate(-45deg);
+        }
+        
+        .menu:focus-visible {
+            clip-path: none;
+            -webkit-mask: none;
+            border: none;
+            outline: 2px solid var(--c);
+            outline-offset: 5px;
+        }
+        
+        .small {
+            height: 5%;
+            width: 100%;
+            color: black;
+            display: flex;
+            justify-content: start;
+            border: 2px solid #ddd;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.3s ease;
+        }
+        
+        .s1 {
+            width: 50%;
+            margin-left: 5%;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        
+        .s2 {
+            width: 50%;
+            margin-left: 5%;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        
+        .titles {
+            display: flex;
+            text-transform: capitalize;
+            height: 100%;
+        }
+        
+        .lang {
+            border: 2px solid #ddd;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.3s ease;
+        }
+        
+        .ef:hover {
+            color: #f84a64;
+        }
+        
+        .hlang {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .each {
+            border: 2px solid #ddd;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.3s ease;
+            border-radius: 5px;
+            color: #f84a64;
+        }
+        
+        .img {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            gap: 10px;
+            width: 100%;
+            margin-top: 10%;
+            border: 2px solid #ddd;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.3s ease;
+            padding: 5px;
+        }
+        
+        .sign-in-btn {
+            background-color: rgb(248, 68, 100);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .sign-in-btn:hover {
+            background-color: rgb(214, 49, 79);
+            transform: scale(1.05);
+        }
+        
+        .search-container input {
+            width: 100%;
+            height: 50px;
+            padding-left: 50px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .search-container input:focus {
+            border-color: #f84a64;
+            box-shadow: 0 0 8px rgba(248, 74, 100, 0.5);
+        }
+        
+        .ef:hover {
+            color: #f84a64;
+            transform: translateY(-2px);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .each {
+            border: 2px solid #ddd;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+            border-radius: 5px;
+            color: #f84a64;
+            padding: 5px;
+        }
+        
+        .each:hover {
+            background-color: #f84a64;
+            color: white;
+            transform: scale(1.1);
+            border-color: #f84a64;
+        }
+        
+        marquee img {
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        marquee img:hover {
+            transform: scale(1.1);
+        }
+        
+        .img {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            gap: 6px;
+            width: 100%;
+            margin-top: 10%;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .img .i1 img {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        
+        .img .i1 img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .img .i1 img {
+            width: 100%;
+            height: 350px;
+            object-fit: fill;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        
+        .img .i1 img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media screen and (min-width:430px) and (max-width:932px) {
+            .ef {
+                font-size: 10px;
+            }
+            .s1 {
+                width: 50%;
+                margin-left: 5%;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .s2 {
+                width: 50%;
+                margin-left: 5%;
+                display: flex;
+                gap: 5px;
+                flex-direction: column;
+            }
+            .start img {
+                height: 50px;
+                width: 60px;
+            }
+            .hlang {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+            }
+            .class-4 {
+                display: block;
+                width: 50px;
+            }
+            .lang {
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+            }
+        }
+        
+        .class-1 {
+            border-color: white;
+            background-color: white;
+        }
+        
+        .class-2 {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .class-3 {
+            height: 100%;
+            width: 20%;
+            text-align: center;
+        }
+        
+        .class-4 {
+            display: inline;
+        }
+        
+        .class-5 {
+            display: inline;
+            margin-left: 100px;
+        }
+        
+        .class-6 {
+            color: #f84a64;
+            border-color: #f84a64;
+            border: 2px solid #ddd;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.3s ease;
+        }
+        
+        .class-7 {
+            height: 100%;
+            width: 70%;
+            text-align: start;
+            margin-left: 10%;
+        }
+        
+        .class-8 {
+            height: 10%;
+            width: 100%;
+            text-align: center;
+            margin-top: 5%;
+        }
+        
+        .class-9 {
+            display: inline;
+        }
+        
+        .class-10 {
+            color: #f84a64;
+            display: inline;
+            margin-left: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="start">
+
+        <div><img src="BookMyShow_id_NUAGErP_1.png" alt="Logo"></div>
+
+
+        <div class="search-container">
+            <input type="search" class="search-bar" placeholder="Search for Movies, Events, Plays, Sports and Activities">
+        </div>
+
+        <div class="actions">
+            <select class="class-1">
+                <option>Kurnool</option>
+                <option>Hyderabad</option>
+            </select>
+            <input type="button" value="Sign In" class="sign-in-btn">
+        </div>
+
+        <div>
+            <input type="checkbox" role="button" aria-label="Display the menu" class="menu">
+        </div>
+    </div>
+    <div class="small">
+        <div class="s1">
+            <a>Movies</a>
+            <a>Stream</a>
+            <a>Events</a>
+            <a>Plays</a>
+            <a>Activities</a>
+        </div>
+        <div class="s2">
+            <a>ListYourShows</a>
+            <a>Corporates</a>
+            <a>Offers</a>
+            <a>Gift Cards</a>
+        </div>
+    </div>
+    <div class="adds">
+        <marquee direction="left" loop="" behavior="alternate" scrollamount="25"><img src="C:\Users\shannu\Desktop\book\1735541514608_thewildrobotpreviewweb.avif"><img src="C:\Users\shannu\Desktop\book\1726038890736_playcardnewweb.avif"></marquee>
+    </div>
+    <div class="class-2">
+        <div class="titles">
+            <div class="class-3">Filters
+                <div class="lang ">
+                    <select class="class-4">
+                        <option>Languages</option>
+                        <option>Hindi</option>
+                        <option>Telugu</option>
+                    </select>
+                    <h5 class="ef" class="class-5">Clear</h5>
+                </div>
+                <br>
+                <div class="lang ">
+                    <select class="class-4">
+                        <option>Genres</option>
+                        <option>Action</option>
+                        <option>Romance</option>
+                    </select>
+                    <h5 class="ef" class="class-5">Clear</h5>
+                </div>
+                <br>
+                <div class="lang ">
+                    <select class="class-4">
+                        <option>Format</option>
+                        <option>2D</option>
+                        <option>3D</option>
+                    </select>
+                    <h5 class="ef" class="class-5">Clear</h5>
+                </div>
+                <br>
+                <div class="class-6">
+                    Browse by Cinemas
+                </div>
+            </div>
+            <div class="class-7">Movies In Kurnool
+                <br>
+                <br>
+                <div class="hlang">
+                    <div class="each">Telugu</div>
+                    <div class="each">Hindi</div>
+                    <div class="each">Marati</div>
+                    <div class="each">Tamil</div>
+                    <div class="each">Kannada</div>
+                    <div class="each">Malayalam</div>
+                </div>
+                <div class="lang class-8">
+                    <h1 class="class-9">Coming Soon</h1>
+                    <h2 class="class-10">Explore Upcoming Movies&gt;</h2>
+                </div>
+                <div class="img">
+                    <div class="i1"><img src="et00356724-gsglcmjwxd-portrait.avif"></div>
+                    <div class="i1"><img src="C:\Users\shannu\Desktop\book\et00416394-jmmlluuywc-portrait.avif"></div>
+                    <div class="i1"><img src="C:\Users\shannu\Desktop\book\et00396541-epynyumney-portrait.avif"></div>
+                    <div class="i1"><img src="C:\Users\shannu\Desktop\book\et00398665-zdjpcpphwk-portrait.avif"></div>
+                    <div class="i1"><img src="C:\Users\shannu\Desktop\book\et00370266-glsbwcmhaz-portrait.avif"></div>
+                    <div class="i1"><img src="C:\Users\shannu\Desktop\book\et00383005-hagfembqmq-portrait.avif"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>
